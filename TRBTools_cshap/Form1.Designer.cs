@@ -41,12 +41,13 @@ namespace TRBTools
             this.label3 = new System.Windows.Forms.Label();
             this.About = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 97);
+            this.label1.Location = new System.Drawing.Point(15, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 0;
@@ -55,7 +56,7 @@ namespace TRBTools
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 119);
+            this.label2.Location = new System.Drawing.Point(15, 102);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 12);
             this.label2.TabIndex = 3;
@@ -68,7 +69,7 @@ namespace TRBTools
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 4;
-            this.label4.Text = "版本：0.0.5";
+            this.label4.Text = "版本：0.0.6";
             // 
             // label5
             // 
@@ -90,7 +91,7 @@ namespace TRBTools
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 55);
+            this.label6.Location = new System.Drawing.Point(15, 46);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 7;
@@ -99,7 +100,7 @@ namespace TRBTools
             // SpeedInput
             // 
             this.SpeedInput.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SpeedInput.Location = new System.Drawing.Point(52, 52);
+            this.SpeedInput.Location = new System.Drawing.Point(52, 43);
             this.SpeedInput.Name = "SpeedInput";
             this.SpeedInput.Size = new System.Drawing.Size(49, 21);
             this.SpeedInput.TabIndex = 8;
@@ -139,17 +140,27 @@ namespace TRBTools
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(107, 55);
+            this.label7.Location = new System.Drawing.Point(107, 46);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 12);
             this.label7.TabIndex = 13;
             this.label7.Text = "注：Enter键确认";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 124);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(209, 12);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "3.按F8开启连点器，再按F8关闭连点器";
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 204);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.About);
             this.Controls.Add(this.label3);
@@ -164,7 +175,7 @@ namespace TRBTools
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form";
-            this.Text = "亿万僵尸工具-0.0.5";
+            this.Text = "亿万僵尸工具-0.0.6";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -184,6 +195,7 @@ namespace TRBTools
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button About;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
     }
 }
 

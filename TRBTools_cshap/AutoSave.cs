@@ -277,7 +277,7 @@ namespace TRBTools
             backupPath = backupPath + "\\" + DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss");
             if (day != -1)
             {
-                backupPath = backupPath + string.Format("[第{0:D3}天]", day);
+                backupPath = backupPath + string.Format("[Day {0}]", day);
             }
             if (!Directory.Exists(backupPath))
             {

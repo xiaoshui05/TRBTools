@@ -18,12 +18,15 @@ namespace TRBTools
         {
             InitializeComponent();
             AutoSave.form1 = this;
+            MouseLeftClick.form1 = this;
             AutoSave.HotKey(this.Handle, true);
+            MouseLeftClick.HotKey(this.Handle,true);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             AutoSave.HotKey(this.Handle, false);
+            MouseLeftClick.HotKey(this.Handle, false);
         }
 
         protected override void WndProc(ref Message m)
@@ -34,6 +37,9 @@ namespace TRBTools
                     if (m.WParam.ToInt32() == 1)
                     {
                         AutoSave.Run();
+                    }else if (m.WParam.ToInt32() == 2)
+                    {
+                        MouseLeftClick.Run();
                     }
                     break;
             }
