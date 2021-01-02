@@ -68,7 +68,7 @@ namespace TRBTools
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 4;
-            this.label4.Text = "版本：0.0.4";
+            this.label4.Text = "版本：0.0.5";
             // 
             // label5
             // 
@@ -164,7 +164,7 @@ namespace TRBTools
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form";
-            this.Text = "亿万僵尸工具-0.0.4";
+            this.Text = "亿万僵尸工具-0.0.5";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();

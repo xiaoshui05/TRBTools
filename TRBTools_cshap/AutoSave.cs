@@ -30,6 +30,19 @@ namespace TRBTools
             0x85,0xc0,
             0x75,0x21,
         };
+        static byte[] gameTimeSearchCode = new byte[]
+        {
+            0xc5,0xf8,0x77,
+            0x48,0xb8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+            0x48,0x8b,0x00,
+            0xc4,0xe1,0x78,0x57,0xc0,
+            0xc4,0xe1,0x7b,0x2a,0x80,0x28,0x02,0x00,0x00,
+            0xc4,0xe1,0x7b,0x5e,0x05,0x11,0x00,0x00,0x00,
+            0xc4,0xe1,0x7b,0x5e,0x05,0x10,0x00,0x00,0x00,
+            0xc4,0xe1,0x7b,0x2c,0xc0,
+            0xc3,
+        };
+        static int gameTimeSearchCodeIgnore = 0b1111111100000;
         static byte[] injectCodeTemplatePart1 = new byte[]
         {
             0xe9,0x00,0x00,0x00,0x00,0x90
@@ -106,7 +119,7 @@ namespace TRBTools
                     return;
                 }
             }
-            int injectSucessSize = tools.InjectCode(injectMemBaseAddress+16+42, makeSaveMark);
+            int injectSucessSize = tools.InjectCode(injectMemBaseAddress + 16 + 42, makeSaveMark);
             if (injectSucessSize != makeSaveMark.Length)
             {
                 tools.Log("注入存档标记失败");
@@ -116,8 +129,13 @@ namespace TRBTools
             }
 
             Thread.Sleep(8000);
-            BackupFile();
-            form1.SetTextBox1Value("Done.");
+            int day = getDay(tools);
+            BackupFile(day);
+            if (tools.log == "")
+            {
+                form1.SetTextBox1Value("Done.");
+            }
+
             saveDoing = false;
         }
         public static IntPtr InjectFunCode(Tools tools, IntPtr injectMemBaseAddress)
@@ -188,7 +206,62 @@ namespace TRBTools
             return injectMemBaseAddress;
         }
 
-        public static void BackupFile()
+        public static int getDay(Tools tools)
+        {
+            int result = -1;
+
+            IntPtr gameTimeFun = tools.GetFunAdderssBySearchCode(gameTimeSearchCode, gameTimeSearchCodeIgnore);
+
+            if (gameTimeFun == IntPtr.Zero)
+            {
+                tools.Log("获取游戏时间函数地址失败");
+                form1.SetTextBox1Value(tools.log);
+                return result;
+            }
+
+            byte[] temp = tools.ReadProcessMemory(gameTimeFun + 5, 8);
+            if(temp == null)
+            {
+                tools.log = "读取游戏时间数据地址的地址失败";
+                form1.SetTextBox1Value(tools.log);
+                return result;
+            }
+            IntPtr tempAddress = byteToIntPtr(temp);
+            temp = tools.ReadProcessMemory(tempAddress, 8);
+            if(temp == null)
+            {
+                tools.log = "读取游戏时间数据地址失败";
+                form1.SetTextBox1Value(tools.log);
+                return result;
+            }
+            tempAddress = byteToIntPtr(temp);
+            temp = tools.ReadProcessMemory(tempAddress + 0x228, 4);
+            if (temp == null)
+            {
+                tools.log = "读取游戏时间数据失败";
+                form1.SetTextBox1Value(tools.log);
+                return result;
+            }
+            int gameTimeInSeconds = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                gameTimeInSeconds += temp[i] << (i * 8);
+            }
+
+            result = (int)((double)gameTimeInSeconds / 1000 / 1.399999976158142);
+            result /= 60;
+            return result;
+        }
+        public static IntPtr byteToIntPtr(byte[] byteArray)
+        {
+            long result = 0;
+            for(int i = 0; i < byteArray.Length; i++)
+            {
+                result += (long)byteArray[i] << (i * 8);
+            }
+            return (IntPtr)result;
+        }
+        public static void BackupFile(int day)
         {
             String basePath = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders").GetValue("Personal").ToString();
             if (basePath[basePath.Length - 1] == '\\') basePath = basePath.Substring(0, basePath.Length - 1);
@@ -202,12 +275,14 @@ namespace TRBTools
             }
 
             backupPath = backupPath + "\\" + DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss");
-
+            if (day != -1)
+            {
+                backupPath = backupPath + string.Format("[第{0:D3}天]", day);
+            }
             if (!Directory.Exists(backupPath))
             {
                 Directory.CreateDirectory(backupPath);
             }
-
             string[] zxcheckArray = Directory.GetFiles(path, "*.zxcheck");
             string[] zxsavArray = Directory.GetFiles(path, "*.zxsav");
             foreach (string zxcheck in zxcheckArray)

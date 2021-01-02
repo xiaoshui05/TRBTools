@@ -117,6 +117,13 @@ namespace TRBTools
                 StateEnum.MEM_COMMIT,
                 TypeEnum.MEM_PRIVATE);
         }
+        public IntPtr GetFunAdderssBySearchCode(byte[] searchCode,int ignore)
+        {
+            return this.GetAdderssBySearchCode(searchCode, ignore, AllocationProtectEnum.PAGE_NOACCESS,
+                AllocationProtectEnum.PAGE_EXECUTE_READWRITE,
+                StateEnum.MEM_COMMIT,
+                TypeEnum.MEM_PRIVATE);
+        }
         public IntPtr GetMarkAddressByMarkCode(byte[] searchCode)
         {
             return this.GetAdderssBySearchCode(searchCode, 0, AllocationProtectEnum.PAGE_NOACCESS,
