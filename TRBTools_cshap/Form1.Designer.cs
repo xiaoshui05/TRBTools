@@ -45,7 +45,6 @@ namespace TRBTools
             this.FinalSwarmButton = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.ShowMapButton = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -188,23 +187,11 @@ namespace TRBTools
             this.ShowMapButton.UseVisualStyleBackColor = true;
             this.ShowMapButton.Click += new System.EventHandler(this.ShowMapButton_Click);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(51, 246);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(129, 19);
-            this.label11.TabIndex = 18;
-            this.label11.Text = "请勿私下传播";
-            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 277);
-            this.Controls.Add(this.label11);
+            this.ClientSize = new System.Drawing.Size(273, 241);
             this.Controls.Add(this.ShowMapButton);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.FinalSwarmButton);
@@ -247,7 +234,6 @@ namespace TRBTools
         private System.Windows.Forms.Button FinalSwarmButton;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button ShowMapButton;
-        private System.Windows.Forms.Label label11;
     }
 }
 
