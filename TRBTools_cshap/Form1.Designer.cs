@@ -42,6 +42,10 @@ namespace TRBTools
             this.About = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.FinalSwarmButton = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.ShowMapButton = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -65,16 +69,16 @@ namespace TRBTools
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(199, 183);
+            this.label4.Location = new System.Drawing.Point(200, 223);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 4;
-            this.label4.Text = "版本：0.0.6";
+            this.label4.Text = "版本：0.0.7";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 153);
+            this.label5.Location = new System.Drawing.Point(15, 188);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 5;
@@ -82,10 +86,10 @@ namespace TRBTools
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(49, 150);
+            this.textBox1.Location = new System.Drawing.Point(53, 185);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(221, 21);
+            this.textBox1.Size = new System.Drawing.Size(218, 21);
             this.textBox1.TabIndex = 6;
             // 
             // label6
@@ -111,7 +115,7 @@ namespace TRBTools
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 183);
+            this.label8.Location = new System.Drawing.Point(6, 223);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 12);
             this.label8.TabIndex = 10;
@@ -155,11 +159,55 @@ namespace TRBTools
             this.label9.TabIndex = 14;
             this.label9.Text = "3.按F8开启连点器，再按F8关闭连点器";
             // 
+            // FinalSwarmButton
+            // 
+            this.FinalSwarmButton.Location = new System.Drawing.Point(38, 144);
+            this.FinalSwarmButton.Name = "FinalSwarmButton";
+            this.FinalSwarmButton.Size = new System.Drawing.Size(75, 23);
+            this.FinalSwarmButton.TabIndex = 15;
+            this.FinalSwarmButton.Text = "最后一波";
+            this.FinalSwarmButton.UseVisualStyleBackColor = true;
+            this.FinalSwarmButton.Click += new System.EventHandler(this.FinalSwarmButton_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(15, 149);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 12);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "4.";
+            // 
+            // ShowMapButton
+            // 
+            this.ShowMapButton.Location = new System.Drawing.Point(127, 144);
+            this.ShowMapButton.Name = "ShowMapButton";
+            this.ShowMapButton.Size = new System.Drawing.Size(75, 23);
+            this.ShowMapButton.TabIndex = 17;
+            this.ShowMapButton.Text = "点我全图";
+            this.ShowMapButton.UseVisualStyleBackColor = true;
+            this.ShowMapButton.Click += new System.EventHandler(this.ShowMapButton_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.ForeColor = System.Drawing.Color.Red;
+            this.label11.Location = new System.Drawing.Point(51, 246);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(129, 19);
+            this.label11.TabIndex = 18;
+            this.label11.Text = "请勿私下传播";
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 204);
+            this.ClientSize = new System.Drawing.Size(273, 277);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.ShowMapButton);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.FinalSwarmButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.About);
@@ -175,7 +223,7 @@ namespace TRBTools
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form";
-            this.Text = "亿万僵尸工具-0.0.6";
+            this.Text = "亿万僵尸工具-0.0.7";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -196,6 +244,10 @@ namespace TRBTools
         private System.Windows.Forms.Button About;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button FinalSwarmButton;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button ShowMapButton;
+        private System.Windows.Forms.Label label11;
     }
 }
 

@@ -7,7 +7,7 @@
     <ProjectGuid>{D85AA324-CF13-40C9-AB84-2DD38B2135AB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TRBTools</RootNamespace>
-    <AssemblyName>TRBTools存档加速-0.0.6</AssemblyName>
+    <AssemblyName>TRBTools存档加速-0.0.7</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -57,7 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoSave.cs" />
+    <Compile Include="Data.cs" />
+    <Compile Include="FinalSwarm.cs" />
     <Compile Include="MouseLeftClick.cs" />
+    <Compile Include="ShowMap.cs" />
     <Compile Include="Speed.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="Form1.cs">

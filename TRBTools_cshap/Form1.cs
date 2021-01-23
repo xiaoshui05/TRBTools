@@ -17,6 +17,7 @@ namespace TRBTools
         public Form()
         {
             InitializeComponent();
+            Data.form1 = this;
             AutoSave.form1 = this;
             MouseLeftClick.form1 = this;
             AutoSave.HotKey(this.Handle, true);
@@ -92,9 +93,22 @@ namespace TRBTools
                 + "3. 如果存档时间超过8s会备份失败，这时需要手动备份\n"
                 + "4. 存档未结束前不能开始新的存档命令，即两次F3命令要间隔8s才能有效\n"
                 + "5. 速度只能是整数，不建议太大\n"
-                + "6. 速度输入框仅用于设置速度，不是游戏实时速度";
+                + "6. 速度输入框仅用于设置速度，不是游戏实时速度"
+                + "7. 不同难度的最后一波有可能叠加";
 
             MessageBox.Show(this,about);
+        }
+
+        private void FinalSwarmButton_Click(object sender, EventArgs e)
+        {
+            FinalSwarm finalSwarm = new FinalSwarm();
+            finalSwarm.Run();
+        }
+
+        private void ShowMapButton_Click(object sender, EventArgs e)
+        {
+            ShowMap showMap = new ShowMap();
+            showMap.Run();
         }
     }
 }

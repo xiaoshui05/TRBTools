@@ -117,7 +117,7 @@ namespace TRBTools
                 StateEnum.MEM_COMMIT,
                 TypeEnum.MEM_PRIVATE);
         }
-        public IntPtr GetFunAdderssBySearchCode(byte[] searchCode,int ignore)
+        public IntPtr GetFunAdderssBySearchCode(byte[] searchCode, int ignore)
         {
             return this.GetAdderssBySearchCode(searchCode, ignore, AllocationProtectEnum.PAGE_NOACCESS,
                 AllocationProtectEnum.PAGE_EXECUTE_READWRITE,
@@ -174,9 +174,9 @@ namespace TRBTools
                     do
                     {
                         int bufferSize = maxBufferSize;
-                        if (maxBufferSize+ memSearchIndex > m.RegionSize.ToInt64())
+                        if (maxBufferSize + memSearchIndex > m.RegionSize.ToInt64())
                         {
-                            bufferSize = (int)(m.RegionSize.ToInt64()- memSearchIndex);
+                            bufferSize = (int)(m.RegionSize.ToInt64() - memSearchIndex);
                         }
                         byte[] buffer = new byte[bufferSize];
                         int byteRead = 0;
@@ -188,7 +188,7 @@ namespace TRBTools
                         }
                         memSearchIndex += maxBufferSize;
                         memSearchIndex -= searchCode.Length;
-                    } while (memSearchIndex+searchCode.Length < m.RegionSize.ToInt64() && result == IntPtr.Zero);
+                    } while (memSearchIndex + searchCode.Length < m.RegionSize.ToInt64() && result == IntPtr.Zero);
 
                 }
                 address = (IntPtr)(address.ToInt64() + m.RegionSize.ToInt64());
@@ -263,13 +263,13 @@ namespace TRBTools
             return (int)lpNumberOfBytesWritten;
         }
 
-        /*        ~Tools()
-                {
-                    if (processHandle != IntPtr.Zero)
-                    {
-                        CloseHandle(processHandle);
-                    }
-                }*/
+        ~Tools()
+        {
+            if (processHandle != IntPtr.Zero)
+            {
+                CloseHandle(processHandle);
+            }
+        }
 
         public int Locate(byte[] self, byte[] pattern, int ignore)
         {
@@ -315,6 +315,18 @@ namespace TRBTools
             {
                 log = str;
             }
+        }
+
+        public IntPtr BytesToTntPtr(byte[] bytes)
+        {
+            if (bytes == null)
+                return IntPtr.Zero;
+            Int64 result = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                result += ((long)bytes[i]) << (i * 8);
+            }
+            return (IntPtr)result;
         }
     }
 }
