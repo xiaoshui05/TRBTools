@@ -27,6 +27,7 @@ namespace TRBTools
             0,0,0,0,0,0,0,0,
         };
         private readonly string LogHead = "最后一波:";
+        public bool extend = false;
 
         public void Run()
         {
@@ -152,7 +153,10 @@ namespace TRBTools
 
             foreach (IntPtr levelEventAddr in LevelEventAddrList)
             {
-                tools.InjectCode(levelEventAddr + 0x28, BytesNullPtr);// 清空规则
+                if (extend)
+                {
+                    tools.InjectCode(levelEventAddr + 0x28, BytesNullPtr);// 清空规则
+                }
                 tools.InjectCode(levelEventAddr + 0x6c, BytesIntZero);
                 tools.InjectCode(levelEventAddr + 0x80, BytesIntZero);
             }

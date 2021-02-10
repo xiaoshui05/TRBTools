@@ -45,6 +45,7 @@ namespace TRBTools
             this.FinalSwarmButton = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.ShowMapButton = new System.Windows.Forms.Button();
+            this.FinalSwarmE = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -72,7 +73,7 @@ namespace TRBTools
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 4;
-            this.label4.Text = "版本：0.0.7";
+            this.label4.Text = "版本：0.0.8";
             // 
             // label5
             // 
@@ -160,7 +161,8 @@ namespace TRBTools
             // 
             // FinalSwarmButton
             // 
-            this.FinalSwarmButton.Location = new System.Drawing.Point(38, 144);
+            this.FinalSwarmButton.Enabled = false;
+            this.FinalSwarmButton.Location = new System.Drawing.Point(53, 144);
             this.FinalSwarmButton.Name = "FinalSwarmButton";
             this.FinalSwarmButton.Size = new System.Drawing.Size(75, 23);
             this.FinalSwarmButton.TabIndex = 15;
@@ -179,7 +181,7 @@ namespace TRBTools
             // 
             // ShowMapButton
             // 
-            this.ShowMapButton.Location = new System.Drawing.Point(127, 144);
+            this.ShowMapButton.Location = new System.Drawing.Point(140, 144);
             this.ShowMapButton.Name = "ShowMapButton";
             this.ShowMapButton.Size = new System.Drawing.Size(75, 23);
             this.ShowMapButton.TabIndex = 17;
@@ -187,11 +189,22 @@ namespace TRBTools
             this.ShowMapButton.UseVisualStyleBackColor = true;
             this.ShowMapButton.Click += new System.EventHandler(this.ShowMapButton_Click);
             // 
+            // FinalSwarmE
+            // 
+            this.FinalSwarmE.AutoSize = true;
+            this.FinalSwarmE.Enabled = false;
+            this.FinalSwarmE.Location = new System.Drawing.Point(32, 149);
+            this.FinalSwarmE.Name = "FinalSwarmE";
+            this.FinalSwarmE.Size = new System.Drawing.Size(15, 14);
+            this.FinalSwarmE.TabIndex = 18;
+            this.FinalSwarmE.UseVisualStyleBackColor = true;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 241);
+            this.Controls.Add(this.FinalSwarmE);
             this.Controls.Add(this.ShowMapButton);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.FinalSwarmButton);
@@ -210,8 +223,9 @@ namespace TRBTools
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form";
-            this.Text = "亿万僵尸工具-0.0.7";
+            this.Text = "亿万僵尸工具-0.0.8";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -234,6 +248,7 @@ namespace TRBTools
         private System.Windows.Forms.Button FinalSwarmButton;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button ShowMapButton;
+        private System.Windows.Forms.CheckBox FinalSwarmE;
     }
 }
 

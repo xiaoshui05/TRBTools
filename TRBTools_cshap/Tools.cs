@@ -98,7 +98,7 @@ namespace TRBTools
         public Process process;
         IntPtr processHandle = IntPtr.Zero;
 
-        IntPtr maxAddress = (IntPtr)0x7fffffffffff;
+        IntPtr maxAddress = (IntPtr)0x7ffffffffff;
         public String log = "";
 
         public Tools()

@@ -21,7 +21,7 @@ namespace TRBTools
             AutoSave.form1 = this;
             MouseLeftClick.form1 = this;
             AutoSave.HotKey(this.Handle, true);
-            MouseLeftClick.HotKey(this.Handle,true);
+            MouseLeftClick.HotKey(this.Handle, true);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -38,7 +38,8 @@ namespace TRBTools
                     if (m.WParam.ToInt32() == 1)
                     {
                         AutoSave.Run();
-                    }else if (m.WParam.ToInt32() == 2)
+                    }
+                    else if (m.WParam.ToInt32() == 2)
                     {
                         MouseLeftClick.Run();
                     }
@@ -96,12 +97,16 @@ namespace TRBTools
                 + "6. 速度输入框仅用于设置速度，不是游戏实时速度"
                 + "7. 不同难度的最后一波有可能叠加";
 
-            MessageBox.Show(this,about);
+            MessageBox.Show(this, about);
         }
 
         private void FinalSwarmButton_Click(object sender, EventArgs e)
         {
             FinalSwarm finalSwarm = new FinalSwarm();
+            if (this.FinalSwarmE.Checked == true)
+            {
+                finalSwarm.extend = true;
+            }
             finalSwarm.Run();
         }
 
@@ -109,6 +114,16 @@ namespace TRBTools
         {
             ShowMap showMap = new ShowMap();
             showMap.Run();
+        }
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+            ToolTip toolTip = new ToolTip();
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 10;
+            toolTip.ShowAlways = true;
+            toolTip.SetToolTip(this.FinalSwarmButton, "如果无效，请选中前面的小框");
+            toolTip.SetToolTip(this.FinalSwarmE, "修复最后一波无效");
         }
     }
 }
