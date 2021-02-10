@@ -18,7 +18,6 @@ namespace TRBTools
         static byte[] markCode = new byte[] { 0xfe, 0xe8, 0xe9, 0xe8, 0xe9, 0xe8, 0xe9, 0xe8, 0xfe, 0xe8, 0xe9, 0xe8, 0xe9, 0xe8, 0xe9, 0xe8 };//16
         static byte[] funSearchCode = new byte[]
         {
-            0x48,0x8b,0x00,
             0x83,0x78,0x18,0x00,
             0x7e,0x08,
             0x48,0x83,0xc4,0x20,
@@ -28,7 +27,14 @@ namespace TRBTools
             0xc3,
             0x8b,0x86,0x84,0x02,0x00,0x00,
             0x85,0xc0,
-            0x75,0x21,
+            0x75,
+        };
+        static byte[] funSearchCodeGameSave = new byte[]
+        {
+            0x8b,0x89,0x6c,0x01,0x00,0x00,
+            0x89,0x8e,0x84,0x02,0x00,0x00,
+            0x48,0x8b,0xce,
+            0xe8,
         };
         static byte[] gameTimeSearchCode = new byte[]
         {
@@ -146,7 +152,7 @@ namespace TRBTools
                 tools.Log("定位函数失败");
                 return IntPtr.Zero;
             }
-            funAddress += 17;
+            funAddress += 14;
             injectMemBaseAddress = tools.InitializesMemory(funAddress, injectMemSize);
 
             if (injectMemBaseAddress == IntPtr.Zero)
@@ -168,12 +174,19 @@ namespace TRBTools
                 injectCodePart1[i + 1] = (byte)((rva >> (i * 8)) & 255);
             }
             byte[] injectCodePart2 = injectCodeTemplatePart2;
-            rva = funAddress.ToInt64() + 6 - injectMemBaseAddress.ToInt64() - 16 - 37 - 5;
+            rva = funAddress.ToInt64() + 6 - injectMemBaseAddress.ToInt64() - 16 - 37 - 5;// 跳回原函数
             for (int i = 0; i < 4; i++)
             {
                 injectCodePart2[i + 38] = (byte)((rva >> (i * 8)) & 255);
             }
-            rva = funAddress.ToInt64() + 0xe6 - injectMemBaseAddress.ToInt64() - 16 - 26 - 5;
+            IntPtr gameSaveFun = tools.GetFunAdderssBySearchCode(funSearchCodeGameSave);
+            if (gameSaveFun == IntPtr.Zero)
+            {
+                tools.Log("定位函数失败:gameSaveFun");
+                return IntPtr.Zero;
+            }
+            gameSaveFun += 15;
+            rva = gameSaveFun.ToInt64() - injectMemBaseAddress.ToInt64() - 16 - 26 - 5;// 跳转到保存函数
             for (int i = 0; i < 4; i++)
             {
                 injectCodePart2[i + 27] = (byte)((rva >> (i * 8)) & 255);

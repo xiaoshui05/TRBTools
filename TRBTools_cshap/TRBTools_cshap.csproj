@@ -7,7 +7,7 @@
     <ProjectGuid>{D85AA324-CF13-40C9-AB84-2DD38B2135AB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TRBTools</RootNamespace>
-    <AssemblyName>TRBTools存档加速-0.0.8</AssemblyName>
+    <AssemblyName>TRBTools存档加速-0.0.9</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -98,7 +98,7 @@ namespace TRBTools
         public Process process;
         IntPtr processHandle = IntPtr.Zero;
 
-        IntPtr maxAddress = (IntPtr)0x7ffffffffff;
+        IntPtr maxAddress = (IntPtr)0x7fffffffffff;
         public String log = "";
 
         public Tools()
@@ -160,6 +160,8 @@ namespace TRBTools
             }
 
             IntPtr address = IntPtr.Zero;
+            Int64 RegionSizeLast = 0;
+            int RegionSizeRepeatCount = 0;
             do
             {
                 MEMORY_BASIC_INFORMATION m;
@@ -193,8 +195,20 @@ namespace TRBTools
                 }
                 address = (IntPtr)(address.ToInt64() + m.RegionSize.ToInt64());
 
-
-            } while (address.ToInt64() < maxAddress.ToInt64() && result == IntPtr.Zero);
+                if (m.RegionSize.ToInt64() == RegionSizeLast)// 修复win7 maxAddress=0x7ffffffffff的问题
+                {
+                    RegionSizeRepeatCount++;
+                }
+                else
+                {
+                    RegionSizeRepeatCount = 0;
+                    RegionSizeLast = m.RegionSize.ToInt64();
+                }
+                if (RegionSizeRepeatCount >= 100)
+                {
+                    Log("RegionSizeRepeatCount大于100");
+                }
+            } while (address.ToInt64() < maxAddress.ToInt64() && result == IntPtr.Zero && RegionSizeRepeatCount < 100);
 
             return result;
         }
