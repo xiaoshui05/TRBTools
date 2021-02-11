@@ -206,7 +206,7 @@ namespace TRBTools
                 }
                 if (RegionSizeRepeatCount >= 100)
                 {
-                    Log("RegionSizeRepeatCount大于100");
+                    AutoSave.form1.SetTextBox1Value("RegionSizeRepeatCount大于100");
                 }
             } while (address.ToInt64() < maxAddress.ToInt64() && result == IntPtr.Zero && RegionSizeRepeatCount < 100);
 
