@@ -75,25 +75,8 @@ namespace TRBTools
             0xe9,0x00,0x00,0x00,0x00,// 跳转到原函数
         };
         static int injectMemSize = 16 + 42 + 8;
-        public static Form form1;
+        public static Form form1 = Data.form1;
         static byte[] makeSaveMark = new byte[] { 0x01, 0x00, 0x00, 0x00 };//1
-        public static void HotKey(IntPtr hWnd, bool register)
-        {
-            if (register)
-            {
-                bool result = Tools.RegisterHotKey(hWnd, 1, 0, Keys.F3);
-                if (result == false)
-                {
-                    //MessageBox.Show("注册快捷键失败");
-                    form1.SetTextBox1Value("注册快捷键失败");
-                }
-            }
-            else
-            {
-                Tools.UnregisterHotKey(hWnd, 1);
-            }
-
-        }
 
         public static void Run()
         {
@@ -233,7 +216,7 @@ namespace TRBTools
             }
 
             byte[] temp = tools.ReadProcessMemory(gameTimeFun + 5, 8);
-            if(temp == null)
+            if (temp == null)
             {
                 tools.log = "读取游戏时间数据地址的地址失败";
                 form1.SetTextBox1Value(tools.log);
@@ -241,7 +224,7 @@ namespace TRBTools
             }
             IntPtr tempAddress = byteToIntPtr(temp);
             temp = tools.ReadProcessMemory(tempAddress, 8);
-            if(temp == null)
+            if (temp == null)
             {
                 tools.log = "读取游戏时间数据地址失败";
                 form1.SetTextBox1Value(tools.log);
@@ -268,7 +251,7 @@ namespace TRBTools
         public static IntPtr byteToIntPtr(byte[] byteArray)
         {
             long result = 0;
-            for(int i = 0; i < byteArray.Length; i++)
+            for (int i = 0; i < byteArray.Length; i++)
             {
                 result += (long)byteArray[i] << (i * 8);
             }
@@ -276,10 +259,7 @@ namespace TRBTools
         }
         public static void BackupFile(int day)
         {
-            String basePath = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders").GetValue("Personal").ToString();
-            if (basePath[basePath.Length - 1] == '\\') basePath = basePath.Substring(0, basePath.Length - 1);
-            string path = basePath + "\\My Games\\They Are Billions\\Saves";
-
+            string path = Tools.SavePath();
             string backupPath = path + "\\TRBToolsBackup";
 
             if (!Directory.Exists(backupPath))
@@ -298,14 +278,20 @@ namespace TRBTools
             }
             string[] zxcheckArray = Directory.GetFiles(path, "*.zxcheck");
             string[] zxsavArray = Directory.GetFiles(path, "*.zxsav");
+            DateTime now = System.DateTime.Now;
+            now = now.AddMinutes(-5);
             foreach (string zxcheck in zxcheckArray)
             {
                 string fName = zxcheck.Substring(path.Length + 1);
+                FileInfo fileInfo = new FileInfo(Path.Combine(path, fName));
+                if (fileInfo.LastWriteTime < now) continue;
                 File.Copy(Path.Combine(path, fName), Path.Combine(backupPath, fName));
             }
             foreach (string zxsav in zxsavArray)
             {
                 string fName = zxsav.Substring(path.Length + 1);
+                FileInfo fileInfo = new FileInfo(Path.Combine(path, fName));
+                if (fileInfo.LastWriteTime < now) continue;
                 File.Copy(Path.Combine(path, fName), Path.Combine(backupPath, fName));
             }
         }

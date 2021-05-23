@@ -26,11 +26,16 @@ namespace TRBTools
         {
             0,0,0,0,0,0,0,0,
         };
-        private readonly string LogHead = "最后一波:";
+        private string LogHead = "最后一波:";
         public bool extend = false;
+        public bool gameWinMark = false;
 
         public void Run()
         {
+            if (gameWinMark)
+            {
+                LogHead = "一键胜利：";
+            }
             Tools tools = new Tools();
             IntPtr funCodeAddress = tools.GetFunAdderssBySearchCode(MarkCode);
             if (funCodeAddress == IntPtr.Zero)
@@ -124,23 +129,33 @@ namespace TRBTools
                     continue;
                 }
                 // FinalSwarm
-                tempbytes = tools.ReadProcessMemory(levelEventAddr + 0xae, 1);
-                if (tempbytes == null)
+                byte[] finalSwarm = tools.ReadProcessMemory(levelEventAddr + 0xae, 1);
+                if (finalSwarm == null)
                 {
                     tools.log = "读取FinalSwarm的值失败";
                     Data.form1.SetTextBox1Value(LogHead + tools.log);
                     continue;
                 }
-                if (tempbytes[0] == 0)
+
+                // 事件发生游戏胜利
+                byte[] gameWon = tools.ReadProcessMemory(levelEventAddr + 0xad, 1);
+                if (gameWon == null)
                 {
+                    tools.log = "读GameWon的值失败";
+                    Data.form1.SetTextBox1Value(LogHead + tools.log);
                     continue;
                 }
 
-                tempbytes = tools.ReadProcessMemory(levelEventAddr + 0xad, 1);
-                if (tempbytes != null && tempbytes[0] == 1)
+                if (gameWinMark)
                 {
-                    continue;
+                    if (gameWon[0] != 1) continue;
                 }
+                else
+                {
+                    if (finalSwarm[0] == 0 || gameWon[0] == 1) continue;
+                }
+
+
                 LevelEventAddrList.Add(levelEventAddr);
             }
 

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TRBTools
 {
     class ShowMap
     {
-        private readonly byte[] MarkCode = new byte[] 
+        private readonly byte[] MarkCode = new byte[]
         {
             0x48,0x83,0xc4,0x28,
             0x5e,
@@ -36,7 +37,7 @@ namespace TRBTools
             Tools tools = new Tools();
             IntPtr funAddr = tools.GetFunAdderssBySearchCode(MarkCode);
 
-            if(funAddr == IntPtr.Zero)
+            if (funAddr == IntPtr.Zero)
             {
                 tools.Log("定位全图函数失败");
                 Data.form1.SetTextBox1Value(LogHead + tools.log);
@@ -44,7 +45,7 @@ namespace TRBTools
             }
 
             int sucessSize = tools.InjectCode(funAddr + 7, this.NewCode);
-            if(sucessSize != this.NewCode.Length)
+            if (sucessSize != this.NewCode.Length)
             {
                 tools.Log("注入新代码失败");
                 Data.form1.SetTextBox1Value(LogHead + tools.log);

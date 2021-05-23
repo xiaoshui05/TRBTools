@@ -96,7 +96,7 @@ namespace TRBTools
         const uint PAGE_READWRITE = 4;
 
         public Process process;
-        IntPtr processHandle = IntPtr.Zero;
+        public IntPtr processHandle = IntPtr.Zero;
 
         IntPtr maxAddress = (IntPtr)0x7fffffffffff;
         public String log = "";
@@ -108,6 +108,14 @@ namespace TRBTools
             {
                 Log("找不到进程");
                 return;
+            }
+        }
+        public void SetProcessHandle()
+        {
+            processHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, process.Id);
+            if (processHandle == IntPtr.Zero)
+            {
+                Log("打开进程句柄失败");
             }
         }
         public IntPtr GetFunAdderssBySearchCode(byte[] searchCode)
@@ -147,11 +155,7 @@ namespace TRBTools
 
             if (processHandle == IntPtr.Zero)
             {
-                processHandle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, process.Id);
-                if (processHandle == IntPtr.Zero)
-                {
-                    Log("打开进程句柄失败");
-                }
+                SetProcessHandle();
             }
 
             if (processHandle == IntPtr.Zero)
@@ -341,6 +345,34 @@ namespace TRBTools
                 result += ((long)bytes[i]) << (i * 8);
             }
             return (IntPtr)result;
+        }
+        public static void HotKey(IntPtr hWnd, bool register)
+        {
+            if (!register)
+            {
+                foreach (var hotKey in Data.hotKeys)
+                {
+                    Tools.UnregisterHotKey(hWnd, hotKey.Value);
+                }
+                return;
+            }
+
+            foreach (var hotKey in Data.hotKeys)
+            {
+                bool result = Tools.RegisterHotKey(hWnd, hotKey.Value, 0, hotKey.Key);
+                if (!result)
+                {
+                    Data.form1.SetTextBox1Value("注册快捷键" + hotKey.Key.ToString() + "失败");
+                }
+            }
+        }
+
+        public static string SavePath()
+        {
+            String basePath = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders").GetValue("Personal").ToString();
+            if (basePath[basePath.Length - 1] == '\\') basePath = basePath.Substring(0, basePath.Length - 1);
+            string path = basePath + "\\My Games\\They Are Billions\\Saves";
+            return path;
         }
     }
 }

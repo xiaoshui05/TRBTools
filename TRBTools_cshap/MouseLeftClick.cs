@@ -15,25 +15,7 @@ namespace TRBTools
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
         const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
         const uint MOUSEEVENTF_LEFTUP = 0x0004;
-        public static Form form1;
         public static bool enabled = false;
-        public static void HotKey(IntPtr hWnd, bool register)
-        {
-            if (register)
-            {
-                bool result = Tools.RegisterHotKey(hWnd, 2, 0, Keys.F8);
-                if (result == false)
-                {
-                    //MessageBox.Show("注册快捷键失败");
-                    form1.SetTextBox1Value("注册快捷键F8失败");
-                }
-            }
-            else
-            {
-                Tools.UnregisterHotKey(hWnd, 2);
-            }
-
-        }
 
         public static void Run()
         {
@@ -52,7 +34,7 @@ namespace TRBTools
         {
             while (enabled)
             {
-                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0,0);
+                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 Thread.Sleep(10);
             }
