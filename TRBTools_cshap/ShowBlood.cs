@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TRBTools
@@ -17,17 +18,40 @@ namespace TRBTools
            int lParam            // 参数2
         );
         private static readonly int WM_KEYDOWN = 0x0100;
+        private static readonly int WM_KEYUP = 0x0101;
         private static readonly int VK_ALT = 0x12;
 
+        public static bool enabled = false;
         public static void Run()
         {
-            Tools tools = new Tools();
-            if (tools.processHandle == IntPtr.Zero)
+            if (enabled)
             {
-                Data.form1.SetTextBox1Value("显血：" + tools.log);
+                enabled = false;
+            }
+            else
+            {
+                enabled = true;
+                Thread th = new Thread(ALT_DOWN);
+                th.Start();
+            }
+        }
+        private static void ALT_DOWN()
+        {
+            Data.form1.SetTextBox1Value("");
+            Tools tools = new Tools();
+            if(tools.process == null || tools.process.MainWindowHandle == IntPtr.Zero)
+            {
+                Data.form1.SetTextBox1Value("显血：未找游戏进程");
+                enabled = false;
                 return;
             }
-            PostMessage(tools.process.MainWindowHandle, WM_KEYDOWN, VK_ALT, 0);
+            IntPtr hWnd = tools.process.MainWindowHandle;
+            while (enabled)
+            {
+                PostMessage(hWnd, WM_KEYDOWN, VK_ALT, 0);
+                Thread.Sleep(1000);
+            }
+            PostMessage(hWnd, WM_KEYUP, VK_ALT, 0);
         }
     }
 }

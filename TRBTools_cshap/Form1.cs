@@ -30,6 +30,8 @@ namespace TRBTools
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Tools.HotKey(this.Handle, false);
+            MouseLeftClick.enabled = false;
+            ShowBlood.enabled = false;
         }
 
         protected override void WndProc(ref Message m)
@@ -133,7 +135,7 @@ namespace TRBTools
             toolTip.ShowAlways = true;
             toolTip.SetToolTip(this.FinalSwarmButton, "如果无效，请选中前面的小框");
             toolTip.SetToolTip(this.FinalSwarmE, "修复最后一波无效");
-            toolTip.SetToolTip(this.LoadScript, "在存档文件夹生成读档脚本【快速读档.bat】，用于读最近一次存档");
+            toolTip.SetToolTip(this.LoadScript, "在存档文件夹生成回档脚本【快速回档.bat】，用于回最近一次存档");
         }
 
         private void GameWinButton_Click(object sender, EventArgs e)
@@ -150,7 +152,7 @@ namespace TRBTools
         private void LoadScript_Click(object sender, EventArgs e)
         {
             string path = Tools.SavePath();
-            StreamWriter sw = new StreamWriter(path + "\\快速读档.bat");
+            StreamWriter sw = new StreamWriter(path + "\\快速回档.bat");
             sw.WriteLine(@"md ""TRBToolsBackup""");
             sw.WriteLine(@"md ""TRBToolsBackup\temp""");
             sw.WriteLine(@"powershell Move-Item -Path .\* -Destination '.\TRBToolsBackup\temp' -Force -Include *.zxcheck,*.zxsav -Exclude *_Backup.zxcheck,*_Backup.zxsav");

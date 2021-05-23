@@ -76,7 +76,7 @@ namespace TRBTools
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 12);
             this.label4.TabIndex = 4;
-            this.label4.Text = "版本：0.1.0";
+            this.label4.Text = "版本：0.1.1";
             // 
             // label5
             // 
@@ -207,9 +207,9 @@ namespace TRBTools
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(15, 142);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(155, 12);
+            this.label11.Size = new System.Drawing.Size(239, 12);
             this.label11.TabIndex = 20;
-            this.label11.Text = "4.按F1显血，按Alt关闭显血";
+            this.label11.Text = "4.按F1开启/关闭显血.开启会导致F2,F4失效";
             // 
             // label12
             // 
@@ -226,7 +226,7 @@ namespace TRBTools
             this.LoadScript.Name = "LoadScript";
             this.LoadScript.Size = new System.Drawing.Size(91, 23);
             this.LoadScript.TabIndex = 22;
-            this.LoadScript.Text = "生成读档脚本";
+            this.LoadScript.Text = "生成回档脚本";
             this.LoadScript.UseVisualStyleBackColor = true;
             this.LoadScript.Click += new System.EventHandler(this.LoadScript_Click);
             // 
@@ -257,7 +257,7 @@ namespace TRBTools
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form";
-            this.Text = "亿万僵尸工具-0.1.0";
+            this.Text = "亿万僵尸工具-0.1.1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
